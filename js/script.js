@@ -133,7 +133,20 @@ function openModal(item) {
 		modalMedia.textContent = 'Media not supported.';
 	}
 
-	modalTitle.textContent = item.title || '';
+	// Title logic: make clickable for Earthrise video
+	if (item.title === 'Earthrise: A Video Reconstruction') {
+		const link = document.createElement('a');
+		link.href = 'https://www.youtube.com/watch?v=1R5QqhPq1Ik';
+		link.target = '_blank';
+		link.rel = 'noopener noreferrer';
+		link.textContent = item.title;
+		link.style.color = '#0B3D91';
+		link.style.textDecoration = 'underline';
+		modalTitle.innerHTML = '';
+		modalTitle.appendChild(link);
+	} else {
+		modalTitle.textContent = item.title || '';
+	}
 	modalDate.textContent = item.date || '';
 	modalExplanation.textContent = item.explanation || '';
 	modalCredit.textContent = item.copyright ? `Credit: ${item.copyright}` : '';
