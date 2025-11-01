@@ -119,49 +119,15 @@ function openModal(item) {
 		img.alt = item.title || '';
 		modalMedia.appendChild(img);
 	} else if (item.media_type === 'video') {
-		let embedUrl = '';
-		let videoId = '';
-		if (item.url && item.url.includes('youtube.com/embed')) {
-			embedUrl = item.url;
-		} else if (item.url && item.url.includes('youtube.com')) {
-			videoId = (item.url.match(/[?&]v=([a-zA-Z0-9_-]+)/) || [])[1];
-			if (videoId) {
-				embedUrl = `https://www.youtube.com/embed/${videoId}`;
-			}
-		} else if (item.url && item.url.includes('youtu.be/')) {
-			videoId = (item.url.match(/youtu\.be\/([a-zA-Z0-9_-]+)/) || [])[1];
-			if (videoId) {
-				embedUrl = `https://www.youtube.com/embed/${videoId}`;
-			}
-		}
-
-		// Try to embed, but always show fallback link and thumbnail
-		let embedFailed = false;
-		if (embedUrl) {
-			const iframe = document.createElement('iframe');
-			iframe.src = embedUrl;
-			iframe.frameBorder = '0';
-			iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
-			iframe.allowFullscreen = true;
-			iframe.onerror = function() { embedFailed = true; };
-			modalMedia.appendChild(iframe);
+		// Only show thumbnail image for video items
+		let thumbSrc = item.thumbnail_url || deriveYouTubeThumb(item.url) || '';
+		if (thumbSrc) {
+			const img = document.createElement('img');
+			img.src = thumbSrc;
+			img.alt = item.title || 'Video thumbnail';
+			modalMedia.appendChild(img);
 		} else {
-			embedFailed = true;
-		}
-		// Always show thumbnail and link
-		if (item.thumbnail_url) modalMedia.appendChild(createImg(item.thumbnail_url, item.title));
-		const a = document.createElement('a');
-		a.href = item.url;
-		a.target = '_blank';
-		a.rel = 'noopener noreferrer';
-		a.textContent = 'Watch video on YouTube';
-		modalMedia.appendChild(a);
-		if (embedFailed) {
-			const errorMsg = document.createElement('div');
-			errorMsg.style.color = '#FC3D21';
-			errorMsg.style.marginTop = '8px';
-			errorMsg.textContent = 'Video player configuration error. Please use the link above.';
-			modalMedia.appendChild(errorMsg);
+			modalMedia.textContent = 'No preview available.';
 		}
 	} else {
 		modalMedia.textContent = 'Media not supported.';
