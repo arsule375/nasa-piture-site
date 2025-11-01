@@ -1,3 +1,20 @@
+/* Did You Know fact box */
+.did-you-know {
+  background: #0B3D91;
+  color: #FFFFFF;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin: 20px auto 24px auto;
+  max-width: 700px;
+  font-size: 18px;
+  box-shadow: 0 2px 8px rgba(11,61,145,0.10);
+  text-align: center;
+}
+.did-you-know strong {
+  color: #FC3D21;
+  font-weight: bold;
+  margin-right: 8px;
+}
 /* Global reset & box sizing */
 * {
   box-sizing: border-box;

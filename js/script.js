@@ -1,3 +1,26 @@
+// Did You Know facts
+const didYouKnowFacts = [
+	"NASA was established in 1958, replacing the National Advisory Committee for Aeronautics (NACA).",
+	"The Apollo 11 mission was the first to land humans on the Moon in 1969.",
+	"The Hubble Space Telescope has been in operation since 1990.",
+	"NASA's Mars rovers have discovered evidence of ancient water flows on Mars.",
+	"The International Space Station orbits Earth every 90 minutes.",
+	"Jupiter is the largest planet in our solar system.",
+	"The Voyager 1 spacecraft is the most distant human-made object from Earth.",
+	"Saturn's rings are made mostly of ice particles.",
+	"The Sun is about 93 million miles (150 million kilometers) from Earth.",
+	"Venus is the hottest planet in our solar system."
+];
+
+function showDidYouKnow() {
+	const factBox = document.getElementById('didYouKnow');
+	if (!factBox) return;
+	const fact = didYouKnowFacts[Math.floor(Math.random() * didYouKnowFacts.length)];
+	factBox.innerHTML = `<strong>Did You Know?</strong> ${fact}`;
+}
+
+// Show fact on page load
+document.addEventListener('DOMContentLoaded', showDidYouKnow);
 // Use this URL to fetch NASA APOD JSON data.
 const apodData = 'https://cdn.jsdelivr.net/gh/GCA-Classroom/apod/data.json';
 
